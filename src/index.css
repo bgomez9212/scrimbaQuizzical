@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f5f7fb;
+  background:
+    url("/blobs-left.png") left bottom no-repeat,
+    url("/blobs-right.png") right top no-repeat;
+  height: 100vh;
+}
