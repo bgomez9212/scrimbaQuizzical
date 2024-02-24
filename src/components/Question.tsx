@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 interface QuestionProps {
   type: string;
   difficulty: string;
@@ -16,9 +18,12 @@ export default function Question({
     correct_answer,
     incorrect_answers,
   },
+  answersObj,
 }: {
   questionObj: QuestionProps;
+  answersObj: { [key: string]: string };
 }) {
+  const [selected, setSelected] = useState("");
   let answers = incorrect_answers.concat(correct_answer);
 
   function shuffle(array: string[]) {
@@ -41,7 +46,15 @@ export default function Question({
     return array;
   }
 
-  answers = shuffle(answers);
+  useEffect(() => {
+    answers = shuffle(answers);
+  }, []);
+
+  function handleClick(answer: string) {
+    answersObj[question] = answer;
+    setSelected(answer);
+  }
+  console.log(selected);
 
   return (
     <div className="border-b">
@@ -51,8 +64,9 @@ export default function Question({
       <div className="flex pb-[20px]">
         {answers.map((answer) => (
           <div
-            className={`mr-[12px] py-[4px] px-[18px] border border-lightblue rounded-lg text-blue`}
+            className={`mr-[12px] py-[4px] px-[18px] border border-lightblue rounded-lg text-blue cursor-pointer ${selected === answer ? "bg-selected border-none" : ""}`}
             key={answer}
+            onClick={() => handleClick(answer)}
           >
             {answer}
           </div>
