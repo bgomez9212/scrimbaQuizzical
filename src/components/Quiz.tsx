@@ -7,13 +7,25 @@ interface QuestionProps {
   incorrect_answers: string[];
 }
 
+import { useState } from "react";
 import data from "../../placeholder.json";
 import Question from "./Question";
 export default function Quiz() {
+  // const [resultsScreen, setResultsScreen] = useState(false);
+  const [numberOfCorrect, setNumberOfCorrect] = useState(0);
   let answersObj: { [key: string]: string } = {};
   for (let { question } of data) {
     answersObj[question] = "";
   }
+
+  function handleCheckAnswers() {
+    for (let i = 0; i < data.length; i++) {
+      if (Object.values(answersObj)[i] === data[i].correct_answer) {
+        setNumberOfCorrect((prev) => prev + 1);
+      }
+    }
+  }
+
   return (
     <div>
       {data.map((questionObj) => (
@@ -23,7 +35,17 @@ export default function Quiz() {
           answersObj={answersObj}
         />
       ))}
-      <button onClick={() => console.log(answersObj)}>Submit</button>
+      <div className="flex justify-center items-center pt-[31px]">
+        <h3 className="font-Inter font-bold text-blue text-[16px] mr-5">
+          You have scored correct {numberOfCorrect}/{data.length} answers
+        </h3>
+        <button
+          className="py-[12px] px-[22px] bg-lightblue text-Inter text-white rounded-xl font-semibold"
+          onClick={handleCheckAnswers}
+        >
+          Check answers
+        </button>
+      </div>
     </div>
   );
 }

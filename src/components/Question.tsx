@@ -54,7 +54,6 @@ export default function Question({
     answersObj[question] = answer;
     setSelected(answer);
   }
-  console.log(selected);
 
   return (
     <div className="border-b">

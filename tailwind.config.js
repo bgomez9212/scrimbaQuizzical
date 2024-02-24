@@ -12,6 +12,7 @@ export default {
       blue: "#293264",
       lightblue: "#4D5B9E",
       selected: "#D6DBF5",
+      white: "#F5F7FB",
     },
   },
   plugins: [],
