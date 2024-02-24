@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="flex justify-center items-center border h-screen">
       {showLanding && <Landing hideLanding={hideLanding} />}
-      {!showLanding && <Quiz />}
+      {!showLanding && <Quiz setShowLanding={setShowLanding} />}
     </div>
   );
 }

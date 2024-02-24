@@ -1,3 +1,4 @@
+import { decode } from "html-entities";
 import { useEffect, useState } from "react";
 
 interface QuestionProps {
@@ -30,13 +31,10 @@ export default function Question({
     let currentIndex = array.length,
       randomIndex;
 
-    // While there remain elements to shuffle.
     while (currentIndex > 0) {
-      // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
 
-      // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex],
         array[currentIndex],
@@ -58,7 +56,7 @@ export default function Question({
   return (
     <div className="border-b">
       <h2 className="font-karla font-bold text-blue mb-[12px] pt-[15px]">
-        {question}
+        {decode(question)}
       </h2>
       <div className="flex pb-[20px]">
         {answers.map((answer) => (
@@ -67,7 +65,7 @@ export default function Question({
             key={answer}
             onClick={() => handleClick(answer)}
           >
-            {answer}
+            {decode(answer)}
           </div>
         ))}
       </div>
