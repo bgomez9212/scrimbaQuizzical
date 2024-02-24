@@ -44,11 +44,18 @@ export default function Question({
   answers = shuffle(answers);
 
   return (
-    <div>
-      <h2>{question}</h2>
-      <div className="flex">
+    <div className="border-b">
+      <h2 className="font-karla font-bold text-blue mb-[12px] pt-[15px]">
+        {question}
+      </h2>
+      <div className="flex pb-[20px]">
         {answers.map((answer) => (
-          <div id={answer}>{answer}</div>
+          <div
+            className={`mr-[12px] py-[4px] px-[18px] border border-lightblue rounded-lg text-blue`}
+            key={answer}
+          >
+            {answer}
+          </div>
         ))}
       </div>
     </div>
