@@ -1,12 +1,3 @@
-interface QuestionProps {
-  type: string;
-  difficulty: string;
-  category: string;
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-}
-
 import { useState } from "react";
 import data from "../../placeholder.json";
 import Question from "./Question";
@@ -43,6 +34,7 @@ export default function Quiz({
           key={questionObj.question}
           questionObj={questionObj}
           answersObj={answersObj}
+          resultsScreen={resultsScreen}
         />
       ))}
       <div className="flex justify-center items-center pt-[31px]">

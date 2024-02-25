@@ -20,9 +20,11 @@ export default function Question({
     incorrect_answers,
   },
   answersObj,
+  resultsScreen,
 }: {
   questionObj: QuestionProps;
   answersObj: { [key: string]: string };
+  resultsScreen: boolean;
 }) {
   const [selected, setSelected] = useState("");
   let answers = incorrect_answers.concat(correct_answer);
@@ -44,6 +46,8 @@ export default function Question({
     return array;
   }
 
+  console.log(selected);
+
   useEffect(() => {
     answers = shuffle(answers);
   }, []);
@@ -59,15 +63,31 @@ export default function Question({
         {decode(question)}
       </h2>
       <div className="flex pb-[20px]">
-        {answers.map((answer) => (
-          <div
-            className={`mr-[12px] py-[4px] px-[18px] border border-lightblue rounded-lg text-blue cursor-pointer ${selected === answer ? "bg-selected border-none" : ""}`}
-            key={answer}
-            onClick={() => handleClick(answer)}
-          >
-            {decode(answer)}
-          </div>
-        ))}
+        {answers.map((answer) =>
+          !resultsScreen ? (
+            <div
+              className={`mr-[12px] py-[4px] px-[18px] border border-lightblue rounded-lg text-blue cursor-pointer ${selected === answer ? "bg-selected border-none" : ""}`}
+              key={answer}
+              onClick={() => handleClick(answer)}
+            >
+              {decode(answer)}
+            </div>
+          ) : (
+            <div
+              className={`mr-[12px] py-[4px] px-[18px] border border-lightblue rounded-lg text-blue cursor-pointer
+                ${
+                  answer === correct_answer
+                    ? "bg-correct border-none"
+                    : selected === answer && selected !== correct_answer
+                      ? "bg-incorrect border-none opacity-60"
+                      : "opacity-60"
+                }`}
+              key={answer}
+            >
+              {decode(answer)}
+            </div>
+          )
+        )}
       </div>
     </div>
   );

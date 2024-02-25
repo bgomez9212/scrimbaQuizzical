@@ -13,6 +13,8 @@ export default {
       lightblue: "#4D5B9E",
       selected: "#D6DBF5",
       white: "#F5F7FB",
+      correct: "#94D7A2",
+      incorrect: "#F8BCBC",
     },
   },
   plugins: [],
