@@ -8,6 +8,7 @@ interface QuestionProps {
   question: string;
   correct_answer: string;
   incorrect_answers: string[];
+  answers: string[];
 }
 
 export default function Question({
@@ -18,6 +19,7 @@ export default function Question({
     question,
     correct_answer,
     incorrect_answers,
+    answers,
   },
   answersObj,
   resultsScreen,
@@ -27,30 +29,6 @@ export default function Question({
   resultsScreen: boolean;
 }) {
   const [selected, setSelected] = useState("");
-  let answers = incorrect_answers.concat(correct_answer);
-
-  function shuffle(array: string[]) {
-    let currentIndex = array.length,
-      randomIndex;
-
-    while (currentIndex > 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-
-    return array;
-  }
-
-  console.log(selected);
-
-  useEffect(() => {
-    answers = shuffle(answers);
-  }, []);
 
   function handleClick(answer: string) {
     answersObj[question] = answer;
@@ -63,7 +41,7 @@ export default function Question({
         {decode(question)}
       </h2>
       <div className="flex pb-[20px]">
-        {answers.map((answer) =>
+        {answers?.map((answer) =>
           !resultsScreen ? (
             <div
               className={`mr-[12px] py-[4px] px-[18px] border border-lightblue rounded-lg text-blue cursor-pointer ${selected === answer ? "bg-selected border-none" : ""}`}

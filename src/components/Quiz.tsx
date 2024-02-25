@@ -1,10 +1,22 @@
+interface QuestionProps {
+  type: string;
+  difficulty: string;
+  category: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+  answers: string[];
+}
+
 import { useState } from "react";
 import data from "../../placeholder.json";
 import Question from "./Question";
 export default function Quiz({
   setShowLanding,
+  questions,
 }: {
   setShowLanding: (value: boolean) => void;
+  questions: QuestionProps[];
 }) {
   const [resultsScreen, setResultsScreen] = useState(false);
   const [numberOfCorrect, setNumberOfCorrect] = useState(0);
@@ -29,7 +41,7 @@ export default function Quiz({
 
   return (
     <div>
-      {data.map((questionObj) => (
+      {questions.map((questionObj) => (
         <Question
           key={questionObj.question}
           questionObj={questionObj}

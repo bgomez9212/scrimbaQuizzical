@@ -1,16 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Landing from "./components/Landing";
 import Quiz from "./components/Quiz";
 
 function App() {
   const [showLanding, setShowLanding] = useState(true);
+  const [questions, setQuestions] = useState([]);
+
   function hideLanding() {
     setShowLanding(false);
   }
+
+  function shuffle(array: string[]) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    while (currentIndex > 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
+  useEffect(() => {
+    fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+      .then((response) => response.json())
+      .then((data) => data.results)
+      .then((results) => {
+        for (let result of results) {
+          result.answers = shuffle(
+            result.incorrect_answers.concat(result.correct_answer)
+          );
+        }
+        return results;
+      })
+      .then((questions) => setQuestions(questions));
+  }, []);
+
   return (
     <div className="flex justify-center items-center border h-screen">
       {showLanding && <Landing hideLanding={hideLanding} />}
-      {!showLanding && <Quiz setShowLanding={setShowLanding} />}
+      {!showLanding && (
+        <Quiz setShowLanding={setShowLanding} questions={questions} />
+      )}
     </div>
   );
 }
