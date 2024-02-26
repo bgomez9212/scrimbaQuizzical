@@ -5,6 +5,10 @@ import Quiz from "./components/Quiz";
 function App() {
   const [showLanding, setShowLanding] = useState(true);
   const [questions, setQuestions] = useState([]);
+  const [userInput, setUserInput] = useState({
+    category: "",
+    numOfQuestions: 5,
+  });
 
   function hideLanding() {
     setShowLanding(false);
@@ -23,7 +27,6 @@ function App() {
         array[currentIndex],
       ];
     }
-
     return array;
   }
 
