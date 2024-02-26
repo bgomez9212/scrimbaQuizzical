@@ -12,7 +12,7 @@ export default function Landing({
   setUserInput,
 }: LandingProps) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center h-[100vh]">
       <h1 className="font-karla font-bold text-[31.25px] text-blue">
         Quizzical
       </h1>

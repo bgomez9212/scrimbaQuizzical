@@ -49,7 +49,7 @@ function App() {
   }, [showLanding]);
 
   return (
-    <div className="flex justify-center items-center border h-screen">
+    <div className="flex justify-center items-center min-h-[100vh] mt-10">
       {showLanding && (
         <Landing
           hideLanding={hideLanding}

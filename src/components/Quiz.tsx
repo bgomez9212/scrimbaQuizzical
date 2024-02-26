@@ -48,7 +48,7 @@ export default function Quiz({
           resultsScreen={resultsScreen}
         />
       ))}
-      <div className="flex justify-center items-center pt-[31px]">
+      <div className="flex justify-center items-center py-5">
         {resultsScreen && (
           <>
             <h3 className="font-Inter font-bold text-blue text-[16px] mr-5">
