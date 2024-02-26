@@ -6,9 +6,10 @@ function App() {
   const [showLanding, setShowLanding] = useState(true);
   const [questions, setQuestions] = useState([]);
   const [userInput, setUserInput] = useState({
-    category: "",
+    category: 9,
     numOfQuestions: 5,
   });
+  console.log(userInput);
 
   function hideLanding() {
     setShowLanding(false);
@@ -31,7 +32,9 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+    fetch(
+      `https://opentdb.com/api.php?amount=${userInput.numOfQuestions}&type=multiple&category=${userInput.category}`
+    )
       .then((response) => response.json())
       .then((data) => data.results)
       .then((results) => {
@@ -47,7 +50,13 @@ function App() {
 
   return (
     <div className="flex justify-center items-center border h-screen">
-      {showLanding && <Landing hideLanding={hideLanding} />}
+      {showLanding && (
+        <Landing
+          hideLanding={hideLanding}
+          setUserInput={setUserInput}
+          userInput={userInput}
+        />
+      )}
       {!showLanding && (
         <Quiz setShowLanding={setShowLanding} questions={questions} />
       )}
