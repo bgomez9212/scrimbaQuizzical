@@ -46,7 +46,7 @@ function App() {
       })
       .then((questions) => setQuestions(questions));
   }, [userInput]);
-  console.log(questions);
+
   return (
     <div className="flex justify-center items-center min-h-[100vh] mt-10">
       {showLanding && (

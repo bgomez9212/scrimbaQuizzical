@@ -1,7 +1,9 @@
 interface LandingProps {
   hideLanding: () => void;
-  userInput: { category: string; numOfQuestions: number };
-  setUserInput: () => void;
+  userInput: { category: number; numOfQuestions: number };
+  setUserInput: React.Dispatch<
+    React.SetStateAction<{ category: number; numOfQuestions: number }>
+  >;
 }
 
 import data from "../../categories.json";
