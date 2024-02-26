@@ -9,7 +9,6 @@ function App() {
     category: 9,
     numOfQuestions: 5,
   });
-  console.log(userInput);
 
   function hideLanding() {
     setShowLanding(false);
@@ -46,8 +45,8 @@ function App() {
         return results;
       })
       .then((questions) => setQuestions(questions));
-  }, [showLanding]);
-
+  }, [userInput]);
+  console.log(questions);
   return (
     <div className="flex justify-center items-center min-h-[100vh] mt-10">
       {showLanding && (
