@@ -9,7 +9,6 @@ interface QuestionProps {
 }
 
 import { useState } from "react";
-import data from "../../placeholder.json";
 import Question from "./Question";
 export default function Quiz({
   setShowLanding,
@@ -21,13 +20,13 @@ export default function Quiz({
   const [resultsScreen, setResultsScreen] = useState(false);
   const [numberOfCorrect, setNumberOfCorrect] = useState(0);
   let answersObj: { [key: string]: string } = {};
-  for (let { question } of data) {
+  for (let { question } of questions) {
     answersObj[question] = "";
   }
 
   function handleCheckAnswers() {
-    for (let i = 0; i < data.length; i++) {
-      if (Object.values(answersObj)[i] === data[i].correct_answer) {
+    for (let i = 0; i < questions.length; i++) {
+      if (Object.values(answersObj)[i] === questions[i].correct_answer) {
         setNumberOfCorrect((prev) => prev + 1);
       }
     }
@@ -53,7 +52,8 @@ export default function Quiz({
         {resultsScreen && (
           <>
             <h3 className="font-Inter font-bold text-blue text-[16px] mr-5">
-              You have scored correct {numberOfCorrect}/{data.length} answers
+              You have scored correct {numberOfCorrect}/{questions.length}{" "}
+              answers
             </h3>
             <button
               className="py-[12px] px-[22px] bg-lightblue text-Inter text-white rounded-xl font-semibold"

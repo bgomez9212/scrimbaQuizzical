@@ -40,7 +40,7 @@ function App() {
         return results;
       })
       .then((questions) => setQuestions(questions));
-  }, []);
+  }, [showLanding]);
 
   return (
     <div className="flex justify-center items-center border h-screen">
