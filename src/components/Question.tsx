@@ -1,5 +1,5 @@
 import { decode } from "html-entities";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface QuestionProps {
   type: string;
@@ -12,15 +12,7 @@ interface QuestionProps {
 }
 
 export default function Question({
-  questionObj: {
-    type,
-    difficulty,
-    category,
-    question,
-    correct_answer,
-    incorrect_answers,
-    answers,
-  },
+  questionObj: { question, correct_answer, answers },
   answersObj,
   resultsScreen,
 }: {
