@@ -13,9 +13,11 @@ import Question from "./Question";
 export default function Quiz({
   setShowLanding,
   questions,
+  userInput,
 }: {
   setShowLanding: (value: boolean) => void;
   questions: QuestionProps[];
+  userInput: { category: number; numOfQuestions: number; loading: boolean };
 }) {
   const [resultsScreen, setResultsScreen] = useState(false);
   const [numberOfCorrect, setNumberOfCorrect] = useState(0);
@@ -36,6 +38,10 @@ export default function Quiz({
   function handlePlayAgain() {
     setResultsScreen(false);
     setShowLanding(true);
+  }
+
+  if (userInput.loading) {
+    return <div>loading...</div>;
   }
 
   return (

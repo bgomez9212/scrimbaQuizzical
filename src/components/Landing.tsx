@@ -1,8 +1,12 @@
 interface LandingProps {
   hideLanding: () => void;
-  userInput: { category: number; numOfQuestions: number };
+  userInput: { category: number; numOfQuestions: number; loading: boolean };
   setUserInput: React.Dispatch<
-    React.SetStateAction<{ category: number; numOfQuestions: number }>
+    React.SetStateAction<{
+      category: number;
+      numOfQuestions: number;
+      loading: boolean;
+    }>
   >;
 }
 

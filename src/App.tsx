@@ -8,6 +8,7 @@ function App() {
   const [userInput, setUserInput] = useState({
     category: 9,
     numOfQuestions: 5,
+    loading: true,
   });
 
   function hideLanding() {
@@ -29,23 +30,29 @@ function App() {
     }
     return array;
   }
-
+  // get questions when necessary
   useEffect(() => {
-    fetch(
-      `https://opentdb.com/api.php?amount=${userInput.numOfQuestions}&type=multiple&category=${userInput.category}`
-    )
-      .then((response) => response.json())
-      .then((data) => data.results)
-      .then((results) => {
-        for (let result of results) {
-          result.answers = shuffle(
-            result.incorrect_answers.concat(result.correct_answer)
-          );
-        }
-        return results;
-      })
-      .then((questions) => setQuestions(questions));
-  }, [userInput]);
+    if (!showLanding) {
+      setUserInput({ ...userInput, loading: true });
+      fetch(
+        `https://opentdb.com/api.php?amount=${userInput.numOfQuestions}&type=multiple&category=${userInput.category}`
+      )
+        .then((response) => response.json())
+        .then((data) => data.results)
+        .then((results) => {
+          for (let result of results) {
+            result.answers = shuffle(
+              result.incorrect_answers.concat(result.correct_answer)
+            );
+          }
+          return results;
+        })
+        .then((questions) => {
+          setQuestions(questions);
+          setUserInput({ ...userInput, loading: false });
+        });
+    }
+  }, [showLanding]);
 
   return (
     <div className="flex justify-center items-center min-h-[100vh] mt-10">
@@ -57,7 +64,11 @@ function App() {
         />
       )}
       {!showLanding && (
-        <Quiz setShowLanding={setShowLanding} questions={questions} />
+        <Quiz
+          setShowLanding={setShowLanding}
+          questions={questions}
+          userInput={userInput}
+        />
       )}
     </div>
   );
